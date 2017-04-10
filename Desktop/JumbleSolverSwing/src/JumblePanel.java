@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -16,6 +17,7 @@ public class JumblePanel extends JPanel {
 	private int nWords;
 	private ArrayList<String> letters;
 	private ArrayList<Integer> amtLetters;
+	private ArrayList<JTextField> boxArr = new ArrayList<JTextField>();
 	public JumblePanel(LanguageMap map) {
 		this.map = map;
 		this.setBackground(new Color(255, 128, 255));// just to make sure we can change...
@@ -29,7 +31,7 @@ public class JumblePanel extends JPanel {
 		myField.setText("Pick number of words");
 		myField.setEditable(false);
 		this.add(myField);
-		JComboBox<Integer> numberList = new JComboBox<Integer>();
+		final JComboBox<Integer> numberList = new JComboBox<Integer>();
 		for(int i = 1; i < 11; i++) {
 			numberList.addItem(i);
 		}
@@ -53,6 +55,37 @@ public class JumblePanel extends JPanel {
 		this.repaint();
 	}
 	private void inputLetters() {
+		for(int i = 0; i < nWords; i++) {
+			int amt = promptAmtOfLetters();
+			makeLetters(amt);
+		}
+	}
+	
+	private void makeLetters(int amt) {
+		
+		for(int i = 0; i < amt; i++) {
+			JTextField field = new JTextField(i);
+			boxArr.add(field);
+		}
+		
+		for(JTextField cur: boxArr) {
+			this.add(cur);
+		}
+		
+		JButton doneButton = new JButton("Done");
+		doneButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				saveLetters();
+			}
+		
+		});
+	}
+	private void saveLetters() {
+		
+	}
+	private void inputTheLetters() {
 		for(int i = 0; i < nWords; i++) {
 			int amtOfLetters = promptAmtOfLetters();
 			amtLetters.add(amtOfLetters);
