@@ -19,13 +19,11 @@ public class JumblePanel extends JPanel {
 	LanguageMap map;
 	private int nWords, curWord;
 	private ArrayList<String> letters;
-	private ArrayList<Integer> amtLetters;
 	private ArrayList<JTextField> boxes = new ArrayList<JTextField>();
 	public JumblePanel(LanguageMap map) {
 		this.map = map;
 		this.setBackground(new Color(255, 128, 255));// just to make sure we can change...
 		letters = new ArrayList<String>();
-		amtLetters = new ArrayList<Integer>(0);
 		createGUI();
 
 	}
@@ -45,9 +43,9 @@ public class JumblePanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				nWords = numberList.getSelectedIndex() + 1;
-				//clear();
+				clear();
 				makeLetters();
-				curWord = 1;
+				curWord = 0;
 			}
 
 		});
@@ -70,7 +68,7 @@ public class JumblePanel extends JPanel {
 	}
 	private void makeBoxes(int amt) {
 		for(int i = 0; i < amt; i++) {
-			JTextField curr = new JTextField(i + 1);
+			JTextField curr = new JTextField("Letter");
 			boxes.add(curr);
 		}
 		
@@ -87,16 +85,17 @@ public class JumblePanel extends JPanel {
 			}
 		});
 		this.add(doneButton);
-		System.out.println("added all fields and buttons");
 		this.validate();
 		this.repaint();
 	}
+	
 	private void gatherLetters() {
 		for(JTextField field: boxes) {
 			letters.add(field.getText());
 		}
+		boxes.clear();
 		curWord++;
-		//clear();
+		clear();
 		nextWord();
 	}
 /*	private void inputLetters() {
@@ -133,7 +132,8 @@ public class JumblePanel extends JPanel {
 
 	private int promptAmtOfLetters() {
 		JOptionPane prompt = new JOptionPane();
-		int number = Integer.parseInt(prompt.showInputDialog("Enter the amount of letters in this word"));
+		int myWordCount = curWord + 1;
+		int number = Integer.parseInt(prompt.showInputDialog("Enter the amount of letters in " + myWordCount + " word"));
 		return number;
 	}
 
