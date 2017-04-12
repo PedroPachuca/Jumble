@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Scanner;
 
 
@@ -5,6 +7,7 @@ import java.util.Scanner;
 public class LanguageMap {
 
 	String myLanguage;
+	HashMap wordMap;
 	
 	// this needs a Map that maps keys ex:  "aehr" to the 
 	// Set of String { "hare", "hear", "rhea"} that have those chars
@@ -12,9 +15,22 @@ public class LanguageMap {
 	
 	public LanguageMap(String lang, Scanner wordSource) {
 		this.myLanguage=lang;
-		// more...
+		wordMap = new HashMap();
+		
+		setUpMaps(wordSource);
 	}
-	
+	private void setUpMaps(Scanner source) {
+		while(source.hasNextLine()) {
+			String word = source.nextLine();
+			String key = alph(word);
+			wordMap.put(key, word);
+		}
+	}
+	public String alph(String word) {
+		char[] alphThis = word.toCharArray();
+		Arrays.sort(alphThis);
+		return alphThis.toString();
+	}
 	public String getLanguage() {
 		return myLanguage;
 	}
