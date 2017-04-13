@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -27,7 +28,7 @@ public class JumblePanel extends JPanel {
 		createGUI();
 
 	}
-	
+
 	private void createGUI() {
 		JTextField myField = new JTextField();
 		myField.setText("Pick number of words");
@@ -52,7 +53,7 @@ public class JumblePanel extends JPanel {
 		this.add(numberList);
 
 	}
-	
+
 	private void clear() {
 		this.removeAll();
 		this.repaint();
@@ -62,23 +63,47 @@ public class JumblePanel extends JPanel {
 			makeLetters();
 		}
 		else if(curWord == nWords) {
-			findWords();
+			System.out.println("finding words");
+			ArrayList<String> myWords = findWords();
+			decipherWords(myWords);
 		}
 	}
+	private void decipherWords(ArrayList<String> myWords) {
+		for(String word: myWords) {
+			String key = "";
+			char[] wordChar = alphabetize(word);
+			for(char character: wordChar) {
+				System.out.println(character);
+				key += character;
+			}
+			System.out.println("Word " + word + " Key " /*+ key*/);
+			
+		}
+
+	}
+	private char[] alphabetize(String word) {
+
+		char[] alphThis = word.toCharArray();
+		Arrays.sort(alphThis);
+		System.out.println(alphThis);
+		return alphThis;
+
+	}
+
 	private void makeLetters() {
-			int amt = promptAmtOfLetters();
-			makeBoxes(amt);
+		int amt = promptAmtOfLetters();
+		makeBoxes(amt);
 	}
 	private void makeBoxes(int amt) {
 		for(int i = 0; i < amt; i++) {
-			JTextField curr = new JTextField("Letter");
+			JTextField curr = new JTextField("Letters");
 			boxes.add(curr);
 		}
-		
+
 		for(JTextField field: boxes) {
 			this.add(field);
 		}
-		
+
 		JButton doneButton = new JButton("Done");
 		doneButton.addActionListener(new ActionListener() {
 
@@ -91,7 +116,7 @@ public class JumblePanel extends JPanel {
 		this.validate();
 		this.repaint();
 	}
-	
+
 	private void gatherLetters() {
 		for(JTextField field: boxes) {
 			letters.add(field.getText());
@@ -102,7 +127,7 @@ public class JumblePanel extends JPanel {
 		clear();
 		nextWord();
 	}
-/*	private void inputLetters() {
+	/*	private void inputLetters() {
 		for(int i = 0; i < nWords; i++) {
 			int amtOfLetters = promptAmtOfLetters();
 			amtLetters.add(amtOfLetters);
@@ -115,7 +140,7 @@ public class JumblePanel extends JPanel {
 			//qs.add(i + 1 + " letter");
 			qs.add(new JTextField(i + 1 + " letter"));
 		}
-		
+
 		Object[] qsArr = qs.toArray();
 		JOptionPane myLetters = new JOptionPane();
 		myLetters.showConfirmDialog(null, qsArr, "Enter Letters", JOptionPane.OK_CANCEL_OPTION);
@@ -131,7 +156,7 @@ public class JumblePanel extends JPanel {
 			this.add(myBox);
 			System.out.println("show pls");
 		}
-		
+
 	}*/
 
 	private int promptAmtOfLetters() {
@@ -140,11 +165,23 @@ public class JumblePanel extends JPanel {
 		int number = Integer.parseInt(prompt.showInputDialog("Enter the amount of letters in " + "word " + myWordCount));
 		return number;
 	}
-	private String[] findWords() {
-		for(String letter: letters) {
-			System.out.println(letter);
+
+	private ArrayList<String> findWords() {
+		ArrayList<String> words = new ArrayList<String>();
+		//if(letters.get(letters.size() - 1).equals("")) {
+		//	letters.remove(letters.size() - 1);
+		//}
+		String thisWord = "";
+		for(String let: letters) {
+			if(!let.equals("")) {
+				thisWord += let;
+			}
+			else {
+				words.add(thisWord);
+				thisWord = "";
+			}
 		}
-		return null;
+		return words;
 	}
 
 }

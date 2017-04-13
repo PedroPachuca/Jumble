@@ -25,14 +25,23 @@ public class LanguageMap {
 			String key = alph(word);
 			wordMap.put(key, word);
 		}
+		System.out.println("finished loading maps");
 	}
+	
 	public String alph(String word) {
 		char[] alphThis = word.toCharArray();
 		Arrays.sort(alphThis);
+		System.out.println(alphThis);
 		return alphThis.toString();
 	}
+	
 	public String getLanguage() {
 		return myLanguage;
+	}
+	public Object findPossilities(String key) {
+		Object values = wordMap.get(key);
+		System.out.println(values);
+		return values;
 	}
 
 }
