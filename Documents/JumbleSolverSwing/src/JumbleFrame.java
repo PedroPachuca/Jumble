@@ -22,8 +22,6 @@ public class JumbleFrame extends JFrame {
 	// one LanguageMap at a time, but can change that later
 	Set<LanguageMap> languageMaps = new HashSet<LanguageMap>();
 	
-	
-	
 	public JumbleFrame() {
 		super("Let's solve the Jumble!");// title the bar
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// ALWAYS DO THIS
@@ -131,6 +129,11 @@ public class JumbleFrame extends JFrame {
 
 	private LanguageMap getCurrentLanguage() {
 		// TODO Auto-generated method stub
+		for(LanguageMap map: languageMaps) {
+			if(map.myLanguage.equals(this.lang)) {
+				return map;
+			}
+		}
 		return null;
 	}
 

@@ -70,23 +70,10 @@ public class JumblePanel extends JPanel {
 	}
 	private void decipherWords(ArrayList<String> myWords) {
 		for(String word: myWords) {
-			String key = "";
-			char[] wordChar = alphabetize(word);
-			for(char character: wordChar) {
-				System.out.println(character);
-				key += character;
-			}
-			System.out.println("Word " + word + " Key " /*+ key*/);
-			
+			String key = map.alph(word);
+			System.out.println("Word " + word + " Key " + key);
+			System.out.println(map.findPossilities(key));
 		}
-
-	}
-	private char[] alphabetize(String word) {
-
-		char[] alphThis = word.toCharArray();
-		Arrays.sort(alphThis);
-		System.out.println(alphThis);
-		return alphThis;
 
 	}
 
@@ -127,37 +114,6 @@ public class JumblePanel extends JPanel {
 		clear();
 		nextWord();
 	}
-	/*	private void inputLetters() {
-		for(int i = 0; i < nWords; i++) {
-			int amtOfLetters = promptAmtOfLetters();
-			amtLetters.add(amtOfLetters);
-			promptLetters(amtOfLetters);
-		}
-	}
-	private void promptLetters(int amt) {
-		ArrayList<Object> qs = new ArrayList<Object>();
-		for(int i = 0; i < amt; i++) {
-			//qs.add(i + 1 + " letter");
-			qs.add(new JTextField(i + 1 + " letter"));
-		}
-
-		Object[] qsArr = qs.toArray();
-		JOptionPane myLetters = new JOptionPane();
-		myLetters.showConfirmDialog(null, qsArr, "Enter Letters", JOptionPane.OK_CANCEL_OPTION);
-		for(Object tf: qs) {
-			String thisLetter = ((JTextComponent) tf).getText();
-			letters.add(thisLetter);
-		}
-		ButtonGroup bg = new ButtonGroup();
-		for(int i = 0; i < amt; i++) {
-			JCheckBox myBox = new JCheckBox("Letter " + amt);
-			myBox.setVisible(true);
-			bg.add(myBox);
-			this.add(myBox);
-			System.out.println("show pls");
-		}
-
-	}*/
 
 	private int promptAmtOfLetters() {
 		JOptionPane prompt = new JOptionPane();
