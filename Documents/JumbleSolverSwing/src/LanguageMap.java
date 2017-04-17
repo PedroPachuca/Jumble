@@ -23,13 +23,11 @@ public class LanguageMap {
 	private void setUpMaps(Scanner source) {
 		while(source.hasNextLine()) {
 			String word = source.nextLine();
-			System.out.println(word);
 			String key = alph(word);
 			if(wordMap.get(key) == null) {
 				wordMap.put(key, new HashSet<String>());
 			}
 			wordMap.get(key).add(word);
-			System.out.println(key);
 		}
 		System.out.println("finished loading maps");
 	}
